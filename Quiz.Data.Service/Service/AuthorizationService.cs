@@ -27,14 +27,20 @@ namespace Quiz.Data.Service
                 if (modelToken.ExpireDate > DateTime.Now)
                 {
                     User user = _context.User.FirstOrDefault(c => c.ID.Equals(modelToken.UserID));
-                    if (user != null)
+                    long[] roles = _context.UserRole.Where(c => c.UserID == user.ID)
+                        .Select(c => c.RoleID)
+                        .ToArray();
+
+                    if (user != null && roles != null && roles.Length > 0)
                     {
                         return new Authorize()
                         {
                             User = user,
                             AuthorizedActions = _context.RoleSystemAction
                             .Include(c => c.SystemAction)
-                            .Where(c => c.RoleID.Equals(user.RoleID))
+                            .Where(c => roles.Contains(c.RoleID))
+
+                            //.Where(c => c.RoleID.Equals(user.RoleID))
                             .Select(c => c.SystemAction).ToList()
                         };
                     }

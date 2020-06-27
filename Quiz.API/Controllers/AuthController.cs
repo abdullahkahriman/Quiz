@@ -58,7 +58,7 @@ namespace Quiz.API.Controllers
                 {
                     Username = request.Username,
                     Password = request.Password,
-                    RoleID = (long)Quiz.Core.Infrastructure.Static.Role.User
+                    //RoleID = (long)Quiz.Core.Infrastructure.Static.Role.User
                 });
 
                 return new Result<object>(true, "Register successfully");

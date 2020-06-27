@@ -10,10 +10,12 @@ namespace Quiz.Data.Context.Context
         public DbSet<Role> Role { get; set; }
         public DbSet<RoleSystemAction> RoleSystemAction { get; set; }
         public DbSet<SystemAction> SystemAction { get; set; }
+        public DbSet<UserRole> UserRole { get; set; }
 
         public DbSet<Question> Question { get; set; }
         public DbSet<Answer> Answer { get; set; }
         public DbSet<QuestionAnswer> QuestionAnswer { get; set; }
+        public DbSet<UserAnswer> UserAnswer { get; set; }
 
         public QuizDBContext(DbContextOptions<QuizDBContext> dbContextOptions) : base(dbContextOptions)
         {
