@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Questions";
+}
+
+<div class="quiz-container">
+    <!-- questions taken from http://davidshariff.com/quiz/ -->
+    @*<header>
+            <small>Multiple Choice Quiz w/ jQuery</small>
+        </header>*@
+    <div id="emc-score"></div>
+    <div class="wrap">
+        <div class="row">
+            <section data-quiz-item>
+                <div class="question">Are CSS property names case-sensitive?<br>Ex: <code>baCkgRouNd: #333;</code></div>
+                <div class="choices" data-choices='["Yes2","No3"]'>
+                </div>
+            </section>
+            <section data-quiz-item>
+                <div class="question">Does setting <code>margin-top:</code> and <code>margin-bottom:</code> have an affect on an inline element?</div>
+                <div class="choices" data-choices='["Yes","No"]'>
+                </div>
+            </section>
+        </div>
+        <div class="submit">
+            <button id="emc-submit">Submit Answers</button>
+        </div>
+    </div>
+
+    <footer id="quiz-footer">
+        <div id="emc-progress"></div>
+    </footer>
+</div>
