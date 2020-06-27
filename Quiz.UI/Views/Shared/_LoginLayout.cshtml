@@ -1,0 +1,45 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login or Register</title>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <link href="~/css/login.css" rel="stylesheet" />
+</head>
+<body>
+
+    @*<h2>Weekly Coding Challenge #1: Sign in/up Form</h2>*@
+    <div class="container" id="container">
+        @RenderBody()
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Welcome Back!</h1>
+                    <p>To keep connected with us please login with your personal info</p>
+                    <button class="ghost" id="signIn" onclick="window.location.href='/Account/SignIn'">Sign In</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>Enter your personal details and start journey with us</p>
+                    <button class="ghost" id="signUp" onclick="window.location.href='/Account/SignUp'">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>
+            Created with <i class="fa fa-heart"></i> by
+            <a target="_blank" href="https://codepen.io/FlorinPop17/pen/vPKWjd">Codepen.IO</a>
+        </p>
+    </footer>
+
+    <!-- scripts -->
+    <script src="~/js/login.js"></script>
+</body>
+</html>
