@@ -17,6 +17,9 @@ namespace Quiz.API
 {
     public class Startup
     {
+        private const string AllCors = "All";
+
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -29,6 +32,11 @@ namespace Quiz.API
         {
             services.AddRepositoryService();
             services.AddControllers();
+
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy(AllCors, build => build.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,6 +46,8 @@ namespace Quiz.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(AllCors);
 
             app.UseHttpsRedirection();
 

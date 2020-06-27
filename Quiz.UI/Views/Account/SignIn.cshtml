@@ -2,16 +2,16 @@
     Layout = "~/Views/Shared/_LoginLayout.cshtml";
 }
 
-<div class="form-container sign-in-container">
-    <form action="#">
+<div class="form-container sign-in-container" ng-controller="AccountSignInCtrl">
+    <form ng-submit="SignIn()">
         <h1>Sign in</h1>
         <div class="social-container">
-            
+
         </div>
         @*<span>or use your account</span>*@
-        <input type="text" autofocus placeholder="User Name" />
-        <input type="password" placeholder="Password" />
+        <input type="text" ng-model="model.username" autofocus placeholder="User Name" />
+        <input type="password" ng-model="model.password" placeholder="Password" />
         <a href="#">Forgot your password?</a>
-        <button>Sign In</button>
+        <button type="submit" name="SignIn">Sign In</button>
     </form>
 </div>

@@ -13,6 +13,7 @@ namespace Quiz.UI
     {
         public static void Main(string[] args)
         {
+
             CreateHostBuilder(args).Build().Run();
         }
 

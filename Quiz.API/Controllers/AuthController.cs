@@ -44,28 +44,38 @@ namespace Quiz.API.Controllers
                     return new Result<LoginResponse>(false, "Username or password incorrect");
                 }
             }
-            return StatusCode(400);
+            else
+            {
+                return new Result<LoginResponse>(false, "Username and password required");
+            }
         }
 
         [HttpPost("register")]
         [ResponseCache(Duration = 30)]
         public ActionResult<Result<object>> Register([FromBody]RegisterRequest request)
         {
-            if (request.Password == request.RePassword)
+            if (!string.IsNullOrEmpty(request.Username) && !string.IsNullOrEmpty(request.Password))
             {
-                request.Password = request.Password.ToSHA256();
-                this._userService.Add(new User()
+                if (request.Password == request.RePassword)
                 {
-                    Username = request.Username,
-                    Password = request.Password,
-                    //RoleID = (long)Quiz.Core.Infrastructure.Static.Role.User
-                });
+                    request.Password = request.Password.ToSHA256();
+                    this._userService.Add(new User()
+                    {
+                        Username = request.Username,
+                        Password = request.Password,
+                        //RoleID = (long)Quiz.Core.Infrastructure.Static.Role.User
+                    });
 
-                return new Result<object>(true, "Register successfully");
+                    return new Result<object>(true, "Register successfully");
+                }
+                else
+                {
+                    return new Result<object>(false, "Passwords must be same");
+                }
             }
             else
             {
-                return new Result<object>(false, "Passwords must be same");
+                return new Result<object>(false, "Username and password required");
             }
         }
     }
