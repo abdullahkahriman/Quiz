@@ -1,5 +1,6 @@
 ﻿@{
     Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    ViewData["Title"] = "Sign In";
 }
 
 <div class="form-container sign-in-container" ng-controller="AccountSignInCtrl">
@@ -12,6 +13,6 @@
         <input type="text" ng-model="model.username" autofocus placeholder="User Name" />
         <input type="password" ng-model="model.password" placeholder="Password" />
         <a href="#">Forgot your password?</a>
-        <button type="submit" name="SignIn">Sign In</button>
+        <button type="submit" ng-disabled="loading" name="SignIn">Sign In</button>
     </form>
 </div>

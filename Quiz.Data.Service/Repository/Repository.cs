@@ -131,6 +131,12 @@ namespace Quiz.Data.Service
         }
 
         [NonAction]
+        public bool GetAny<A>(Expression<Func<A, bool>> metot) where A : Superior
+        {
+            return Table<A>().Any(metot);
+        }
+
+        [NonAction]
         public List<A> GetWhere<A>(Expression<Func<A, bool>> metot) where A : Superior
         {
             return Table<A>().Where(metot).ToList();

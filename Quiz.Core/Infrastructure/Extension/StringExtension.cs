@@ -18,27 +18,22 @@ namespace Quiz.Core
         {
             return Enigma.ComputeMD5(rawData);
         }
-
         public static string ToRijndael(this string plainText)
         {
             return Enigma.Encrypt(plainText);
         }
-
         public static string FromRijndael(this string cipherText)
         {
             return Enigma.Decrypt(cipherText);
         }
-
         public static Model FromRijndael<Model>(this string cipherText) where Model : class
         {
             return Enigma.Decrypt(cipherText).FromJson<Model>();
         }
-
         private static JsonSerializerSettings set = new JsonSerializerSettings()
         {
             ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
         };
-
         public static string ToJson(this object model)
         {
             if (model != null)
@@ -46,7 +41,6 @@ namespace Quiz.Core
             else
                 return null;
         }
-        
         public static Model FromJson<Model>(this string jsonModel) where Model : class
         {
             if (!string.IsNullOrEmpty(jsonModel))

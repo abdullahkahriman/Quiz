@@ -1,5 +1,6 @@
 ﻿@{
     Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    ViewData["Title"] = "Sign Up";
 }
 
 <div class="form-container sign-up-container" ng-controller="AccountSignUpCtrl">
@@ -11,6 +12,6 @@
         <input type="text" ng-model="model.username" autofocus placeholder="User Name" />
         <input type="password" ng-model="model.password" placeholder="Password" />
         <input type="password" ng-model="model.repassword" placeholder="Re Password" />
-        <button type="submit" name="SignUp">Sign Up</button>
+        <button type="submit" ng-disabled="loading" name="SignUp">Sign Up</button>
     </form>
 </div>
