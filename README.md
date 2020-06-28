@@ -7,3 +7,8 @@
 * Layered Architecture
 * Authentication (Token) System
 * Authorization Middleware
+
+
+## Installation
+* API project should be run
+* UI project should be run
