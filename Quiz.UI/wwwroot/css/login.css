@@ -58,6 +58,10 @@ button {
 	cursor: pointer;
 }
 
+button[disabled] {
+	cursor: wait;
+}
+
 button:active {
 	transform: scale(0.95);
 }
