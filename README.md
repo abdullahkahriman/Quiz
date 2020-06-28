@@ -9,6 +9,6 @@
 * Authorization Middleware
 
 
-## Installation
+## Installation and Run
 * API project should be run
 * UI project should be run
