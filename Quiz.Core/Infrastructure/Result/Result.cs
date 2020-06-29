@@ -26,5 +26,12 @@ namespace Quiz.Core
             this.Data = data;
             this.ShowAlert = showAlert;
         }
+
+        public Result(bool isSuccess, RType data)
+        {
+            Type dataType = data.GetType();
+            this.IsSuccess = isSuccess;
+            this.Data = data;
+        }
     }
 }

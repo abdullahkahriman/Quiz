@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using Quiz.Data.Model.Entity;
 using Quiz.Data.Model.System;
 using Quiz.Data.Service.Interface;
 
@@ -11,6 +12,7 @@ namespace Quiz.Data.Service
             services.AddDbContextService();
             services.AddTransient<IRepository<User>, UserService>();
             services.AddTransient<IAuthorizationService, AuthorizationService>();
+            services.AddTransient<IRepository<Question>, QuizService>();
             return services;
         }
     }

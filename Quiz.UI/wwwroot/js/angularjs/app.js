@@ -1,4 +1,4 @@
-﻿var app = angular.module('quizApp', []);
+﻿var app = angular.module('quizApp', ['ngAnimate']);
 
 const apiUrl = 'https://localhost:44376/api';
 const keyToken = 'token';
@@ -35,10 +35,9 @@ function setToken(val) {
 }
 
 /**
- * Is the user logged in */
-function isLoggedIn() {
-    if (getToken()) {
-        return true;
+ * Redirect user logged in */
+function redirectSignIn() {
+    if (!getToken()) {
+        window.location = '/account/signin';
     }
-    return false;
 }

@@ -2,31 +2,51 @@
     ViewData["Title"] = "Questions";
 }
 
-<div class="quiz-container">
-    <!-- questions taken from http://davidshariff.com/quiz/ -->
-    @*<header>
-            <small>Multiple Choice Quiz w/ jQuery</small>
-        </header>*@
-    <div id="emc-score"></div>
-    <div class="wrap">
-        <div class="row">
-            <section data-quiz-item>
-                <div class="question">Are CSS property names case-sensitive?<br>Ex: <code>baCkgRouNd: #333;</code></div>
-                <div class="choices" data-choices='["Yes2","No3"]'>
-                </div>
-            </section>
-            <section data-quiz-item>
-                <div class="question">Does setting <code>margin-top:</code> and <code>margin-bottom:</code> have an affect on an inline element?</div>
-                <div class="choices" data-choices='["Yes","No"]'>
-                </div>
-            </section>
-        </div>
-        <div class="submit">
-            <button id="emc-submit">Submit Answers</button>
+@section Scripts {
+    <script src="~/js/angularjs/ctrl/QuizCtrl.js"></script>
+}
+
+<div class="col-md-10 column" id="quiz-container" ng-controller="QuizCtrl">
+    <p class="lead">Tamamlanma oranı %40</p>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: 40%;">
+            <span class="sr-only">Completo al 40%</span>
         </div>
     </div>
-
-    <footer id="quiz-footer">
-        <div id="emc-progress"></div>
-    </footer>
+    <div class="card" ng-repeat="(i, quiz) in quizList">
+        <div class="card-header">
+            <h3 class="panel-title">{{quiz.question}}</h3>
+        </div>
+        <div class="card-body">
+            <label ng-repeat="answer in quiz.answers">
+                <input type="radio" name="optionsRadios_{{i}}" value="option1">
+                {{answer.text}}
+            </label>
+        </div>
+        <div class="card-footer">
+            <a href="#" class="btn btn-primary " role="button">Onaylıyorum</a>
+            @*<a href="#" class="btn btn-default disabled" role="button">Avanti</a>*@
+        </div>
+    </div>
 </div>
+
+@*<div class="quiz-container" ng-controller="QuizCtrl">
+
+        <div id="emc-score"></div>
+        <div class="wrap">
+            <div class="row">
+                <section ng-repeat="quiz in quizList" data-quiz-item>
+                    <div class="question">{{quiz.question}}</div>
+                    <div class="choices" data-choices='["Yes2","No3"]'>
+                    </div>
+                </section>
+            </div>
+            <div class="submit">
+                <button id="emc-submit">Submit Answers</button>
+            </div>
+        </div>
+
+        <footer id="quiz-footer">
+            <div id="emc-progress"></div>
+        </footer>
+    </div>*@
