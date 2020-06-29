@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace Quiz.UI
 {
@@ -22,6 +16,14 @@ namespace Quiz.UI
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.UseUrls("https://localhost:44376/");
+
+                    //string dir = Directory.GetCurrentDirectory().Replace("UI", "API");
+
+                    //string _args= $"dotnet run --project {dir}";
+                    //var config = new ConfigurationBuilder()
+                    //            .AddCommandLine(new string[] { _args })
+                    //            .Build();
                 });
     }
 }
