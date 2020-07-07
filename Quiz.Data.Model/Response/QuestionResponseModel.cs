@@ -6,6 +6,7 @@ namespace Quiz.Data.Model.Response
 {
     public class QuestionResponseModel
     {
+        public long ID { get; set; }
         public string Question { get; set; }
         public List<AnswerResponseModel> Answers { get; set; }
     }
@@ -14,5 +15,6 @@ namespace Quiz.Data.Model.Response
     {
         public string Text { get; set; }
         public bool IsTrue { get; set; }
+        public long ID { get; set; }
     }
 }

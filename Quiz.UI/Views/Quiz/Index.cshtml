@@ -19,12 +19,12 @@
         </div>
         <div class="card-body">
             <label ng-repeat="answer in quiz.answers">
-                <input type="radio" name="optionsRadios_{{i}}" value="option1">
+                <input type="radio" ng-model="opts[i]" name="optionsRadios_{{i}}" value="{{answer.id}}">
                 {{answer.text}}
             </label>
         </div>
         <div class="card-footer">
-            <a href="#" class="btn btn-primary " role="button">Onaylıyorum</a>
+            <a href="javascript:;" class="btn btn-primary" ng-click="nextQuestion(quiz.id, opts[i])" role="button">Onaylıyorum</a>
             @*<a href="#" class="btn btn-default disabled" role="button">Avanti</a>*@
         </div>
     </div>

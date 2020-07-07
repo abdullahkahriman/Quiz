@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Quiz.API.Static;
 using Quiz.Core;
 using Quiz.Data.Model.Entity;
+using Quiz.Data.Model.Request;
 using Quiz.Data.Model.Response;
 using Quiz.Data.Service;
 
@@ -22,12 +24,26 @@ namespace Quiz.API.Controllers
             this._quizService = (QuizService)quizService;
         }
 
-        [HttpGet]
-        public ActionResult<Result<List<QuestionResponseModel>>> Get()
+        [HttpPost("[action]")]
+        public ActionResult<Result<List<QuestionResponseModel>>> Get([FromBody] QuizRequestModel model)
         {
             try
             {
-                return this._quizService.Questions();
+                return this._quizService.Questions(model);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [HttpPost("[action]")]
+        public ActionResult<Result<object>> AnswerTheQuestion([FromBody] AnswerTheQuestionModel model)
+        {
+            try
+            {
+                model.UserID = Current.User.ID;
+                return this._quizService.AnswerTheQuestion(model);
             }
             catch (Exception ex)
             {

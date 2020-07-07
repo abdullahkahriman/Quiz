@@ -39,8 +39,6 @@ namespace Quiz.Data.Service
                             AuthorizedActions = _context.RoleSystemAction
                             .Include(c => c.SystemAction)
                             .Where(c => roles.Contains(c.RoleID))
-
-                            //.Where(c => c.RoleID.Equals(user.RoleID))
                             .Select(c => c.SystemAction).ToList()
                         };
                     }

@@ -34,7 +34,6 @@ function jgHttp($http) {
                     alert("Hata Var");
                 }
             });
-
     };
 
     root.postData = function (url, data, onsuccess, onfail) {
