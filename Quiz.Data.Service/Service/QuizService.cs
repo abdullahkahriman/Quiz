@@ -46,8 +46,7 @@ namespace Quiz.Data.Service
                         Answers = x.QuestionAnswers.Where(qa => !qa.Answer.IsDeleted).Select(qa => new
                         {
                             ID = qa.AnswerID,
-                            Text = qa.Answer.Text,
-                            IsTrue = qa.Answer.IsTrue
+                            Text = qa.Answer.Text
                         }).ToList(),
                     })
                     .Take(1)
@@ -56,25 +55,6 @@ namespace Quiz.Data.Service
                 QuestionTotalAnswered = findQuestionIDS.Length,
                 IsFinish = isFinish
             };
-
-            //var questions = this._context.Question
-            //    .Where(c => !c.IsDeleted && !findQuestionIDS.Contains(c.ID) && (model.ID == null || c.ID > model.ID))
-            //    .Select(c => new
-            //    {
-            //        ID = c.ID,
-            //        Question = c.Text,
-            //        Answers = c.QuestionAnswers.Where(qa => !qa.Answer.IsDeleted).Select(qa => new AnswerResponseModel()
-            //        {
-            //            ID = qa.AnswerID,
-            //            Text = qa.Answer.Text,
-            //            IsTrue = qa.Answer.IsTrue
-            //        }).ToList(),
-            //        QuestionTotalCount = questionTotalCount,
-            //        QuestionTotalAnswered = findQuestionIDS.Length,
-            //        IsFinish = isFinish
-            //    })
-            //    .Take(1)
-            //    .ToList();
 
             return new Result<object>(true, questions);
         }
