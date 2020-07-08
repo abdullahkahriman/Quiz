@@ -9,8 +9,13 @@ function QuizCtrl($scope, $jgHttp) {
     //get questions
     getQuestion();
 
-    $scope.nextQuestion = function (quizID, answerID) {
-        setAnswer(quizID, answerID);
+    $scope.nextQuestion = function (quizID, answerID) { 
+        if (!quizID || !answerID) {
+            alert("No answer selected");
+        } else {
+            $scope.opts = [];
+            setAnswer(quizID, answerID);
+        }
     }
 
     /**

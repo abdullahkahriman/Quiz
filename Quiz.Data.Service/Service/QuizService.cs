@@ -84,6 +84,10 @@ namespace Quiz.Data.Service
                     {
                         result = new Result<object>(false, "You already answered");
                     }
+                    else if (this._context.Answer.Any(c => c.ID == model.AnswerID && !c.IsTrue))
+                    {
+                        result = new Result<object>(false, "Wrong answer");
+                    }
                     else
                     {
                         this._context.UserAnswer.Add(new UserAnswer()

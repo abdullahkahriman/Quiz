@@ -27,7 +27,9 @@
             </label>
         </div>
         <div class="card-footer">
-            <a href="javascript:;" class="btn btn-primary" ng-click="nextQuestion(quiz.id, opts[i])" role="button">Onaylıyorum</a>
+            <a href="javascript:;" class="btn btn-primary"
+               style="{{ !opts[i] ? 'pointer-events:none' : '' }}"
+               ng-click="nextQuestion(quiz.id, opts[i])" role="button">Onaylıyorum</a>
             @*<a href="#" class="btn btn-default disabled" role="button">Avanti</a>*@
         </div>
     </div>
