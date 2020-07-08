@@ -7,13 +7,16 @@
 }
 
 <div class="col-md-10 column" id="quiz-container" ng-controller="QuizCtrl">
-    <p class="lead">Tamamlanma oranı %40</p>
+    <p class="lead">
+        <span ng-show="quizList.isFinish" class="d-block">Tebrikler! Tüm soruları cevapladın.</span>
+        Tamamlanma oranı %{{progressBar}}
+    </p>
     <div class="progress">
-        <div class="progress-bar" role="progressbar" style="width: 40%;">
-            <span class="sr-only">Completo al 40%</span>
+        <div class="progress-bar" role="progressbar" style="width: {{progressBar}}%;">
+            <span class="sr-only">Completo al {{progressBar}}%</span>
         </div>
     </div>
-    <div class="card" ng-repeat="(i, quiz) in quizList">
+    <div class="card" ng-repeat="(i, quiz) in quizList.list">
         <div class="card-header">
             <h3 class="panel-title">{{quiz.question}}</h3>
         </div>

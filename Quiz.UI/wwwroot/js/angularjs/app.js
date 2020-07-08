@@ -8,7 +8,8 @@ const keyToken = 'token';
  * @param {any} key
  */
 function getLS(key) {
-    return localStorage.getItem(key);
+    const val = localStorage.getItem(key);
+    return val;
 }
 
 /**
@@ -21,9 +22,17 @@ function setLS(key, val) {
 }
 
 /**
+ * delete local storage
+ * @param {any} key
+ */
+function delLS(key) {
+    localStorage.removeItem(key);
+}
+
+/**
  * Get token value */
 function getToken() {
-    getLS(keyToken);
+    return getLS(keyToken);
 }
 
 /**
@@ -40,4 +49,10 @@ function redirectSignIn() {
     if (!getToken()) {
         window.location = '/account/signin';
     }
+}
+
+/** User sign out */
+function signOut() {
+    delLS(keyToken);
+    redirectSignIn();
 }

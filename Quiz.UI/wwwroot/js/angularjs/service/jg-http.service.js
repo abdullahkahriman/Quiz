@@ -4,6 +4,10 @@
 function jgHttp($http) {
     var root = {};
 
+    if (!getLS(keyToken)) {
+        redirectSignIn();
+    }
+
     root.getData = function (url, onsuccess, onfail) {
         $http.get(url,
             {

@@ -155,6 +155,18 @@ namespace Quiz.Data.Service
         }
 
         [NonAction]
+        public int Count()
+        {
+            return Table().Count();
+        }
+
+        [NonAction]
+        public int Count(Expression<Func<Type, bool>> metot)
+        {
+            return Table().Count(metot);
+        }
+
+        [NonAction]
         public void BeginTran()
         {
             _context.Database.BeginTransaction();

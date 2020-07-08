@@ -4,7 +4,9 @@ function QuizCtrl($scope, $jgHttp) {
 
     $scope.quizList = [];
     $scope.opts = [];
+    $scope.progressBar = 0;
 
+    //get questions
     getQuestion();
 
     $scope.nextQuestion = function (quizID, answerID) {
@@ -24,11 +26,23 @@ function QuizCtrl($scope, $jgHttp) {
 
         $jgHttp.postData(`${apiUrl}/quiz/get`, obj, function (result) {
             $scope.quizList = result.data;
+
+            //total questions
+            let questionTotalCount = result.data.questionTotalCount;
+            //total answered question
+            let questionTotalAnswered = result.data.questionTotalAnswered;
+
+            $scope.progressBar = (questionTotalAnswered / questionTotalCount) * 100;
         }, function (err) {
 
         });
     }
 
+    /**
+     * Set answer
+     * @param {any} questionID
+     * @param {any} answerID
+     */
     function setAnswer(questionID, answerID) {
         var obj = {
             QuestionID: parseInt(questionID),
@@ -38,9 +52,11 @@ function QuizCtrl($scope, $jgHttp) {
         $jgHttp.postData(`${apiUrl}/quiz/answerthequestion`, obj, function (result) {
             if (result.isSuccess) {
                 getQuestion(questionID);
+            } else {
+                alert(result.message);
             }
         }, function (err) {
-
+            alert(err.message);
         });
     }
 

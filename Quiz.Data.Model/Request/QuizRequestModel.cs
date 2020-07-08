@@ -3,5 +3,6 @@
     public class QuizRequestModel
     {
         public long? ID { get; set; }
+        public long UserID { get; set; }
     }
 }

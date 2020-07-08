@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Quiz.API.Static;
 using Quiz.Core;
 using Quiz.Data.Model.Entity;
 using Quiz.Data.Model.Request;
-using Quiz.Data.Model.Response;
 using Quiz.Data.Service;
 
 namespace Quiz.API.Controllers
@@ -25,10 +20,14 @@ namespace Quiz.API.Controllers
         }
 
         [HttpPost("[action]")]
-        public ActionResult<Result<List<QuestionResponseModel>>> Get([FromBody] QuizRequestModel model)
+        public ActionResult<Result<object>> Get([FromBody] QuizRequestModel model)
         {
             try
             {
+                if (model == null)
+                    model = new QuizRequestModel();
+
+                model.UserID = Current.User.ID;
                 return this._quizService.Questions(model);
             }
             catch (Exception ex)

@@ -8,4 +8,8 @@
     <ProjectReference Include="..\Quiz.Core\Quiz.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Response\" />
+  </ItemGroup>
+
 </Project>
