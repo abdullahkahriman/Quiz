@@ -9,6 +9,11 @@ function QuizCtrl($scope, $jgHttp) {
     //get questions
     getQuestion();
 
+    /**
+     * Next question
+     * @param {any} quizID
+     * @param {any} answerID
+     */
     $scope.nextQuestion = function (quizID, answerID) { 
         if (!quizID || !answerID) {
             alert("No answer selected");
@@ -37,7 +42,7 @@ function QuizCtrl($scope, $jgHttp) {
             //total answered question
             let questionTotalAnswered = result.data.questionTotalAnswered;
 
-            $scope.progressBar = (questionTotalAnswered / questionTotalCount) * 100;
+            $scope.progressBar = parseInt((questionTotalAnswered / questionTotalCount) * 100);
         }, function (err) {
 
         });
