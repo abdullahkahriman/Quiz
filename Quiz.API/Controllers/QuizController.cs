@@ -20,12 +20,12 @@ namespace Quiz.API.Controllers
         }
 
         [HttpPost("[action]")]
-        public ActionResult<Result<object>> Get([FromBody] QuizRequestModel model)
+        public ActionResult<Result<object>> Get([FromBody] RequestQuizModel model)
         {
             try
             {
                 if (model == null)
-                    model = new QuizRequestModel();
+                    model = new RequestQuizModel();
 
                 model.UserID = Current.User.ID;
                 return this._quizService.Questions(model);
@@ -37,7 +37,7 @@ namespace Quiz.API.Controllers
         }
 
         [HttpPost("[action]")]
-        public ActionResult<Result<object>> AnswerTheQuestion([FromBody] AnswerTheQuestionModel model)
+        public ActionResult<Result<object>> AnswerTheQuestion([FromBody] RequestAnswerTheQuestionModel model)
         {
             try
             {

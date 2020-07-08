@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Quiz.Data.Model.Request
+﻿namespace Quiz.Data.Model.Request
 {
-   public class AnswerTheQuestionModel
+    public class RequestAnswerTheQuestionModel
     {
         public long QuestionID { get; set; }
         public long AnswerID { get; set; }

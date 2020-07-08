@@ -13,7 +13,7 @@ namespace Quiz.Data.Service
         {
         }
 
-        public Result<object> Questions(QuizRequestModel model)
+        public Result<object> Questions(RequestQuizModel model)
         {
             //kullanıcının cevap verdiği soru id'lerini bul
             long[] findQuestionIDS = this._context.UserAnswer
@@ -64,7 +64,7 @@ namespace Quiz.Data.Service
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public Result<object> AnswerTheQuestion(AnswerTheQuestionModel model)
+        public Result<object> AnswerTheQuestion(RequestAnswerTheQuestionModel model)
         {
             Result<object> result;
 
