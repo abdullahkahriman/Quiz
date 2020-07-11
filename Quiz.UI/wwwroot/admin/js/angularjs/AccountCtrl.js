@@ -16,7 +16,7 @@ function AccountSignInCtrl($scope, $http) {
                         alert(resp.message);
                     } else {
                         setToken(resp.data.token);
-                        window.location = resp.data.go;
+                        window.location = '/';
                     }
 
                     $scope.loading = false;

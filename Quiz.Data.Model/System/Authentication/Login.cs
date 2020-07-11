@@ -10,5 +10,6 @@ namespace Quiz.Data.Model.System.Authentication
     public class LoginResponse
     {
         public string Token { get; set; }
+        public string Go { get; set; }
     }
 }

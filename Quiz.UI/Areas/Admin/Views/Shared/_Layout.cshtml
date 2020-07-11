@@ -6,7 +6,7 @@
     <!-- styles -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 </head>
-<body>
+<body ng-app="quizApp" ng-controller="HomeCtrl" ng-cloak>
 
     <!-- header -->
     <header>
@@ -38,5 +38,16 @@
     <!-- scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/angularjs/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-animate/1.8.0/angular-animate.min.js"></script>
+    <script src="~/js/angularjs/app.js"></script>
+
+    <!-- ctrls -->
+    <script src="~/admin/js/angularjs/HomeCtrl.js"></script>
+
+    <!-- services -->
+    <script src="~/js/angularjs/service/jg-http.service.js"></script>
+
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

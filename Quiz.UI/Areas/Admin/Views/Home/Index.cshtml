@@ -28,17 +28,21 @@
     }
 </style>
 
-<div class="login-form">
-    <form action="/examples/actions/confirmation.php" method="post">
+@section Scripts {
+    <script src="~/js/angularjs/ctrl/AccountCtrl.js"></script>
+}
+
+<div class="login-form" ng-controller="AccountSignInCtrl">
+    <form ng-submit="SignIn()" method="post">
         <h2 class="text-center">Login and manage site...</h2>
         <div class="form-group">
-            <input type="text" autofocus class="form-control" placeholder="Username" required="required">
+            <input type="text" autofocus ng-model="model.username" class="form-control" placeholder="Username" required="required">
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" placeholder="Password" required="required">
+            <input type="password" class="form-control" ng-model="model.password" placeholder="Password" required="required">
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block">Log in</button>
+            <button type="submit" ng-disabled="loading" class="btn btn-primary btn-block">Log in</button>
         </div>
         <div class="clearfix">
             <label class="float-left form-check-label"><input type="checkbox"> Remember me</label>

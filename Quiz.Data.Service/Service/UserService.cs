@@ -1,7 +1,10 @@
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Quiz.Core;
 using Quiz.Data.Model.System;
 using Quiz.Data.Model.System.Authentication;
 using System;
+using System.Linq;
 
 namespace Quiz.Data.Service
 {
@@ -23,7 +26,10 @@ namespace Quiz.Data.Service
             if (!string.IsNullOrEmpty(request.Username) && !string.IsNullOrEmpty(request.Password))
             {
                 request.Password = request.Password.ToSHA256();
-                User user = this.GetSingle(c => c.Username.Equals(request.Username) && c.Password.Equals(request.Password));
+                //User user = this.GetSingle(c => c.Username.Equals(request.Username) && c.Password.Equals(request.Password));
+                User user = this._context.User
+                    .Where(c => c.Username.Equals(request.Username) && c.Password.Equals(request.Password)).Include(c => c.UserRoles)
+                    .FirstOrDefault();
                 if (user != null)
                 {
                     result = new Result<LoginResponse>(true, "Login successfully", new LoginResponse()
@@ -34,7 +40,8 @@ namespace Quiz.Data.Service
                             UserID = user.ID
                         }
                         .ToJson()
-                        .ToRijndael()
+                        .ToRijndael(),
+                        Go = user.UserRoles.Any(r => r.RoleID == (byte)Core.Infrastructure.Static.Role.Administrator) ? "/admin" : "/"
                     });
                 }
                 else
