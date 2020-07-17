@@ -19,99 +19,99 @@ namespace Quiz.Data.Service
         }
 
         [NonAction]
-        public DbSet<Type> Table()
+        public DbSet<Type> _Table()
         {
-            return Table<Type>();
+            return _Table<Type>();
         }
 
         [NonAction]
-        public DbSet<A> Table<A>() where A : class
+        public DbSet<A> _Table<A>() where A : class
         {
             return _context.Set<A>();
         }
 
         [NonAction]
-        public bool Add(Type model)
+        public bool _Add(Type model)
         {
-            return Add<Type>(model);
+            return _Add<Type>(model);
         }
 
         [NonAction]
-        public bool Add<A>(A model) where A : Superior
+        public bool _Add<A>(A model) where A : Superior
         {
             model.IsDeleted = false;
-            Table<A>().Add(model);
-            Save();
+            _Table<A>().Add(model);
+            _Save();
             return true;
         }
 
         [NonAction]
-        public List<Type> Get()
+        public List<Type> _Get()
         {
-            return Get<Type>();
+            return _Get<Type>();
         }
 
         [NonAction]
-        public List<A> Get<A>() where A : Superior
+        public List<A> _Get<A>() where A : Superior
         {
-            return Table<A>().ToList();
+            return _Table<A>().ToList();
         }
 
         [NonAction]
-        public Type GetById(long id)
+        public Type _GetById(long id)
         {
-            return GetById<Type>(id);
+            return _GetById<Type>(id);
         }
 
         [NonAction]
-        public A GetById<A>(long id) where A : Superior
+        public A _GetById<A>(long id) where A : Superior
         {
-            return GetSingle<A>(c => !c.IsDeleted && c.ID.Equals(id));
+            return _GetSingle<A>(c => !c.IsDeleted && c.ID.Equals(id));
         }
 
         [NonAction]
         public bool Remove(Type model)
         {
-            return Remove<Type>(model);
+            return _Remove<Type>(model);
         }
 
         [NonAction]
-        public bool Remove<A>(A model) where A : Superior
+        public bool _Remove<A>(A model) where A : Superior
         {
             model.IsDeleted = true;
-            Save();
+            _Save();
             return true;
         }
 
         [NonAction]
-        public bool Remove(long id)
+        public bool _Remove(long id)
         {
-            return Remove<Type>(id);
+            return _Remove<Type>(id);
         }
 
         [NonAction]
-        public bool Remove<A>(long id) where A : Superior
+        public bool _Remove<A>(long id) where A : Superior
         {
-            A data = GetSingle<A>(c => !c.IsDeleted && c.ID.Equals(id));
-            return Remove<A>(data);
+            A data = _GetSingle<A>(c => !c.IsDeleted && c.ID.Equals(id));
+            return _Remove<A>(data);
         }
 
         [NonAction]
-        public int Save()
+        public int _Save()
         {
             return _context.SaveChanges();
         }
 
         [NonAction]
-        public bool Update(Type model, long id)
+        public bool _Update(Type model)
         {
-            return Update<Type>(model, id);
+            return _Update<Type>(model);
         }
 
         [NonAction]
-        public bool Update<A>(A model, long id) where A : Superior
+        public bool _Update<A>(A model) where A : Superior
         {
-            A data = GetById<A>(id);
+            A data = _GetById<A>(model.ID);
 
             var props = typeof(A).GetProperties();
             var baseProps = typeof(Superior).GetProperties();
@@ -120,66 +120,66 @@ namespace Quiz.Data.Service
                     prop.SetValue(data, prop.GetValue(model) ?? prop.GetValue(data));
 
             model.UpdatedAt = DateTime.Now;
-            Save();
+            _Save();
             return true;
         }
 
         [NonAction]
-        public List<Type> GetWhere(Expression<Func<Type, bool>> metot)
+        public List<Type> _GetWhere(Expression<Func<Type, bool>> metot)
         {
-            return GetWhere<Type>(metot);
+            return _GetWhere<Type>(metot);
         }
 
         [NonAction]
-        public bool GetAny<A>(Expression<Func<A, bool>> metot) where A : Superior
+        public bool _GetAny<A>(Expression<Func<A, bool>> metot) where A : Superior
         {
-            return Table<A>().Any(metot);
+            return _Table<A>().Any(metot);
         }
 
         [NonAction]
-        public List<A> GetWhere<A>(Expression<Func<A, bool>> metot) where A : Superior
+        public List<A> _GetWhere<A>(Expression<Func<A, bool>> metot) where A : Superior
         {
-            return Table<A>().Where(metot).ToList();
+            return _Table<A>().Where(metot).ToList();
         }
 
         [NonAction]
-        public Type GetSingle(Func<Type, bool> metot)
+        public Type _GetSingle(Func<Type, bool> metot)
         {
-            return GetSingle<Type>(metot);
+            return _GetSingle<Type>(metot);
         }
 
         [NonAction]
-        public A GetSingle<A>(Func<A, bool> metot) where A : Superior
+        public A _GetSingle<A>(Func<A, bool> metot) where A : Superior
         {
-            return Table<A>().FirstOrDefault(metot);
+            return _Table<A>().FirstOrDefault(metot);
         }
 
         [NonAction]
-        public int Count()
+        public int _Count()
         {
-            return Table().Count();
+            return _Table().Count();
         }
 
         [NonAction]
-        public int Count(Expression<Func<Type, bool>> metot)
+        public int _Count(Expression<Func<Type, bool>> metot)
         {
-            return Table().Count(metot);
+            return _Table().Count(metot);
         }
 
         [NonAction]
-        public void BeginTran()
+        public void _BeginTran()
         {
             _context.Database.BeginTransaction();
         }
 
         [NonAction]
-        public void Commit()
+        public void _Commit()
         {
             _context.Database.CommitTransaction();
         }
 
         [NonAction]
-        public void Rollback()
+        public void _Rollback()
         {
             _context.Database.RollbackTransaction();
         }

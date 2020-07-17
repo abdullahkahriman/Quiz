@@ -55,14 +55,17 @@ namespace Quiz.UI
             app.UseRouting();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
+            app.UseEndpoints(routes =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapControllerRoute(
+                    name: "areaRoute",
+                    pattern: "{area:exists}/{controller=home}/{action=index}/{id?}"
+                );
 
-                endpoints.MapControllerRoute(name: "areas",
-                      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                routes.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=home}/{action=index}/{id?}"
+                );
             });
         }
     }

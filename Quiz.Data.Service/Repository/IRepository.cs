@@ -8,25 +8,25 @@ namespace Quiz.Data.Service
 {
     public interface IRepository<T> where T : Superior
     {
-        List<T> Get();
-        List<A> Get<A>() where A : Superior;
-        List<T> GetWhere(Expression<Func<T, bool>> predicate);
-        List<A> GetWhere<A>(Expression<Func<A, bool>> predicate) where A : Superior;
-        T GetSingle(Func<T, bool> predicate);
-        A GetSingle<A>(Func<A, bool> predicate) where A : Superior;
-        T GetById(long id);
-        A GetById<A>(long id) where A : Superior;
-        bool Add(T entity);
-        bool Add<A>(A entity) where A : Superior;
+        List<T> _Get();
+        List<A> _Get<A>() where A : Superior;
+        List<T> _GetWhere(Expression<Func<T, bool>> predicate);
+        List<A> _GetWhere<A>(Expression<Func<A, bool>> predicate) where A : Superior;
+        T _GetSingle(Func<T, bool> predicate);
+        A _GetSingle<A>(Func<A, bool> predicate) where A : Superior;
+        T _GetById(long id);
+        A _GetById<A>(long id) where A : Superior;
+        bool _Add(T entity);
+        bool _Add<A>(A entity) where A : Superior;
         bool Remove(T entity);
-        bool Remove<A>(A entity) where A : Superior;
-        bool Remove(long id);
-        bool Remove<A>(long id) where A : Superior;
-        bool Update(T entity, long id);
-        bool Update<A>(A entity, long id) where A : Superior;
-        int Save();
-        void BeginTran();
-        void Commit();
-        void Rollback();
+        bool _Remove<A>(A entity) where A : Superior;
+        bool _Remove(long id);
+        bool _Remove<A>(long id) where A : Superior;
+        bool _Update(T entity);
+        bool _Update<A>(A entity) where A : Superior;
+        int _Save();
+        void _BeginTran();
+        void _Commit();
+        void _Rollback();
     }
 }

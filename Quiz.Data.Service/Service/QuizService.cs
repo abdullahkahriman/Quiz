@@ -23,7 +23,7 @@ namespace Quiz.Data.Service
 
             bool isFinish = false;
 
-            int questionTotalCount = this.Count(c => !c.IsDeleted),
+            int questionTotalCount = this._Count(c => !c.IsDeleted),
                 questionTotalAnswer = 0;
 
             //kullanıcı kaç soruya cevap vermiş bul

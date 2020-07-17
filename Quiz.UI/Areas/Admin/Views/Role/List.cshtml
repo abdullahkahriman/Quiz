@@ -1,0 +1,31 @@
+﻿@section Scripts {
+    <script src="~/admin/js/angularjs/RoleCtrl.js"></script>
+}
+
+<table class="table table-hover table-bordered" ng-controller="RoleListCtrl">
+    <thead>
+        <tr>
+            <th>Role name</th>
+            <th>Created At</th>
+            <th>Updated At</th>
+            <th class="text-center">Actions</th>
+        </tr>
+    </thead>
+    <tbody ng-show="wait">
+        <tr class="text-center">
+            <td colspan="4">Please wait...</td>
+        </tr>
+    </tbody>
+    <tbody ng-show="!wait">
+        <tr ng-repeat="role in roleList">
+            <td>{{ role.name }}</td>
+            <td>{{ role.createdAt | date }}</td>
+            <td>{{ role.updatedAt | date }}</td>
+            <td class="text-center">
+                <a href="create/{{ role.id }}">
+                    <i title="Edit" class="fas fa-pencil-alt"></i>
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>

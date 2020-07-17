@@ -10,9 +10,10 @@ namespace Quiz.Data.Service
         public static IServiceCollection AddRepositoryService(this IServiceCollection services)
         {
             services.AddDbContextService();
-            services.AddTransient<IRepository<User>, UserService>();
             services.AddTransient<IAuthorizationService, AuthorizationService>();
+            services.AddTransient<IRepository<User>, UserService>();
             services.AddTransient<IRepository<Question>, QuizService>();
+            services.AddTransient<IRepository<Role>, RoleService>();
             return services;
         }
     }

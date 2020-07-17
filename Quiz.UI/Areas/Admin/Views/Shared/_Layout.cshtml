@@ -4,7 +4,9 @@
     <title>Admin</title>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <!-- styles -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="~/admin/css/style.css" rel="stylesheet" />
 </head>
 <body ng-app="quizApp" ng-controller="HomeCtrl" ng-cloak>
 
@@ -12,16 +14,53 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" href="/admin">ADMIN</a>
+                <a class="navbar-brand" asp-area="admin" asp-action="index" asp-controller="home">ADMIN</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark @(Helper.SetActiveClassName(new string[] {"/home","/" }))"
-                               href="/admin">Home</a>
+                        @*<li class="nav-item">
+                            <a class="nav-link text-dark
+                               @(Helper.SetActiveClassName(new string[] {"/admin/home","/admin" }))"
+                               asp-area="admin" asp-action="index" asp-controller="home">Home</a>
+                        </li>*@
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link text-dark dropdown-toggle @(Helper.SetActiveClassName(new string[] {"/admin/quiz/create","/admin/quiz/list" }))" data-toggle="dropdown">Quiz</a>
+                            <div class="dropdown-menu">
+                                <a asp-area="admin" asp-action="list" asp-controller="quiz"
+                                   class="dropdown-item @(Helper.SetActiveClassName(new string[] {"/admin/quiz/list" }))">List</a>
+                                <a asp-area="admin" asp-action="create" asp-controller="quiz"
+                                   class="dropdown-item @(Helper.SetActiveClassName(new string[] {"/admin/quiz/create" }))">Create</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link text-dark dropdown-toggle @(Helper.SetActiveClassName(new string[] {"/admin/user/create","/admin/user/list" }))" data-toggle="dropdown">User</a>
+                            <div class="dropdown-menu">
+                                <a asp-area="admin" asp-action="list" asp-controller="user"
+                                   class="dropdown-item @(Helper.SetActiveClassName(new string[] {"/admin/user/list" }))">List</a>
+                                <a asp-area="admin" asp-action="create" asp-controller="user"
+                                   class="dropdown-item @(Helper.SetActiveClassName(new string[] {"/admin/user/create" }))">Create</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link text-dark dropdown-toggle @(Helper.SetActiveClassName(new string[] {"/admin/role/create","/admin/role/list" }))" data-toggle="dropdown">Role</a>
+                            <div class="dropdown-menu">
+                                <a asp-area="admin" asp-action="list" asp-controller="role"
+                                   class="dropdown-item @(Helper.SetActiveClassName(new string[] {"/admin/role/list" }))">List</a>
+                                <a asp-area="admin" asp-action="create" asp-controller="role" asp-route-id=""
+                                   class="dropdown-item @(Helper.SetActiveClassName(new string[] {"/admin/role/create" }))">Create</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link text-dark dropdown-toggle @(Helper.SetActiveClassName(new string[] {"/admin/systemaction/create","/admin/systemaction/list" }))" data-toggle="dropdown">System Action</a>
+                            <div class="dropdown-menu">
+                                <a asp-area="admin" asp-action="list" asp-controller="systemAction"
+                                   class="dropdown-item @(Helper.SetActiveClassName(new string[] {"/admin/systemaction/list" }))">List</a>
+                                <a asp-area="admin" asp-action="create" asp-controller="systemAction"
+                                   class="dropdown-item @(Helper.SetActiveClassName(new string[] {"/admin/systemaction/create" }))">Create</a>
+                            </div>
                         </li>
                     </ul>
                 </div>

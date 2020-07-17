@@ -72,14 +72,14 @@ namespace Quiz.Data.Service
                 {
                     if (request.Password == request.RePassword)
                     {
-                        if ((this.GetAny<User>(c => c.Username.ToLower().Equals(request.Username.ToLower()))))
+                        if ((this._GetAny<User>(c => c.Username.ToLower().Equals(request.Username.ToLower()))))
                         {
                             result = new Result<object>(false, "Username already exists");
                         }
                         else
                         {
                             request.Password = request.Password.ToSHA256();
-                            this.Add(new User()
+                            this._Add(new User()
                             {
                                 Username = request.Username,
                                 Password = request.Password

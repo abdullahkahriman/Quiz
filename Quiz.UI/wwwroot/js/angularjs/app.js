@@ -46,9 +46,7 @@ function setToken(val) {
 /**
  * Redirect user logged in */
 function redirectSignIn() {
-    if (!getToken()) {
-        window.location = '/account/signin';
-    }
+    window.location = '/account/signin';
 }
 
 /** User sign out */

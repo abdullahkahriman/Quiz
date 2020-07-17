@@ -6,11 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Quiz.UI.Areas.Admin.Controllers
 {
-    public class HomeController : BaseController
+    [Area("admin")]
+    public abstract class BaseController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        
     }
 }

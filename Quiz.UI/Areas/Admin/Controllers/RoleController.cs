@@ -6,10 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Quiz.UI.Areas.Admin.Controllers
 {
-    public class HomeController : BaseController
+    public class RoleController : BaseController
     {
-        public IActionResult Index()
+        public IActionResult List()
         {
+            return View();
+        }
+
+        public IActionResult Create(long? ID)
+        {
+            ViewBag.ID = ID;
             return View();
         }
     }

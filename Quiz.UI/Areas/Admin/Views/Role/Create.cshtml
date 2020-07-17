@@ -1,0 +1,21 @@
+﻿@{
+    long? id = (long?)ViewBag.ID;
+}
+
+@section Scripts {
+    <script>
+        const id = @id;
+    </script>
+    <script src="~/admin/js/angularjs/RoleCtrl.js"></script>
+}
+
+<div ng-controller="RoleCreateCtrl">
+    <form ng-submit="save()" ng-hide="wait">
+        <div class="form-group">
+            <label for="name">Role name:</label>
+            <input type="text" id="name" autofocus class="form-control" ng-model="role.name" placeholder="Role name" />
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+</div>
+

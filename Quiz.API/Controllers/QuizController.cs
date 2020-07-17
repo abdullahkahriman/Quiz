@@ -8,15 +8,13 @@ using Quiz.Data.Service;
 
 namespace Quiz.API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class QuizController : ControllerBase
+    public class QuizController : BaseController
     {
-        private readonly QuizService _quizService;
+        private readonly QuizService quizService;
 
-        public QuizController(IRepository<Question> quizService)
+        public QuizController(IRepository<Question> _quizService)
         {
-            this._quizService = (QuizService)quizService;
+            this.quizService = (QuizService)_quizService;
         }
 
         [HttpPost("[action]")]
@@ -28,7 +26,7 @@ namespace Quiz.API.Controllers
                     model = new RequestQuizModel();
 
                 model.UserID = Current.User.ID;
-                return this._quizService.Questions(model);
+                return this.quizService.Questions(model);
             }
             catch (Exception ex)
             {
@@ -42,7 +40,7 @@ namespace Quiz.API.Controllers
             try
             {
                 model.UserID = Current.User.ID;
-                return this._quizService.AnswerTheQuestion(model);
+                return this.quizService.AnswerTheQuestion(model);
             }
             catch (Exception ex)
             {
