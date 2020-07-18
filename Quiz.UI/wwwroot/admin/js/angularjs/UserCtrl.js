@@ -20,6 +20,29 @@ function UserListCtrl($scope, $jgHttp) {
         }));
     }
     init();
+
+    $scope.delete = (id) => {
+        if (window.confirm("Are you sure?")) {
+            $scope.wait = true;
+            $jgHttp.postData(`${apiUrl}/${cName}/delete/${id}`, {}, (s => {
+                removeByID(id);
+                $scope.wait = false;
+            }), (e => {
+                $scope.wait = false;
+            }));
+        }
+    }
+
+    function removeByID(id) {
+        var arr = $scope.userList;
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i].id === id) {
+                const index = arr.indexOf(arr[i]);
+                arr.splice(index, 1);
+                break;
+            }
+        }
+    }
 }
 
 /**

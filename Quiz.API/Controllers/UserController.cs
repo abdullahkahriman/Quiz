@@ -32,5 +32,11 @@ namespace Quiz.API.Controllers
 
             return this.userService.Save(model);
         }
+
+        [HttpPost("[action]/{id}")]
+        public ActionResult<Result<object>> Delete(long id)
+        {
+            return this.userService.Delete(id);
+        }
     }
 }

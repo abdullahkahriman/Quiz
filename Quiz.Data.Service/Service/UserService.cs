@@ -228,5 +228,37 @@ namespace Quiz.Data.Service
 
             return result;
         }
+
+        /// <summary>
+        /// User delete
+        /// </summary>
+        /// <param name="id">User ID</param>
+        /// <returns></returns>
+        public Result<object> Delete(long id)
+        {
+            Result<object> result;
+
+            try
+            {
+                User user = this._context.User.Where(c => c.ID == id).FirstOrDefault();
+                if (user == null)
+                    return new Result<object>(false, "User not found!");
+                else
+                {
+                    user.IsDeleted = true;
+                    user.UpdatedAt = DateTime.Now;
+                    this._context.Entry(user).State = EntityState.Modified;
+                    this._context.SaveChanges();
+
+                    result = new Result<object>(true, "Updated");
+                }
+            }
+            catch (Exception ex)
+            {
+                result = new Result<object>(false, "Something went wrong!");
+            }
+
+            return result;
+        }
     }
 }
