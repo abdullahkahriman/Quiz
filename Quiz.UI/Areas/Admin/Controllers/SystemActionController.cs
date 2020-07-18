@@ -2,7 +2,7 @@
 
 namespace Quiz.UI.Areas.Admin.Controllers
 {
-    public class RoleController : BaseController
+    public class SystemActionController : BaseController
     {
         public IActionResult List()
         {
@@ -11,12 +11,7 @@ namespace Quiz.UI.Areas.Admin.Controllers
 
         public IActionResult Create(long? ID)
         {
-            if ((ID ?? 0) == 0)
-            {
-                return RedirectToAction("List");
-            }
-
-            ViewBag.ID = ID.Value;
+            ViewBag.ID = ID??0;
             return View();
         }
     }

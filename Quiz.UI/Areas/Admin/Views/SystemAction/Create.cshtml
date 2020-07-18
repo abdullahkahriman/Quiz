@@ -1,0 +1,26 @@
+﻿@{
+    long id = (long)ViewBag.ID;
+}
+
+@section Scripts {
+    <script>
+        const id = @id;
+    </script>
+    <script src="~/admin/js/angularjs/SystemActionCtrl.js"></script>
+}
+
+<div ng-controller="SystemActionCreateCtrl">
+    <div ng-show="wait" class="text-center">Please wait...</div>
+    <form ng-submit="save()" ng-hide="wait">
+        <div class="form-group">
+            <label for="ctrlName">Controller Name:</label>
+            <input type="text" id="ctrlName" autofocus class="form-control" ng-model="systemAction.controllerName" placeholder="Controller Name" />
+        </div>
+        <div class="form-group">
+            <label for="actName">Action Name:</label>
+            <input type="text" id="actName" autofocus class="form-control" ng-model="systemAction.actionName" placeholder="Action Name" />
+        </div>
+        <button type="submit" class="btn btn-primary">{{ systemAction.id == 0 ? 'Save' : 'Update' }}</button>
+    </form>
+</div>
+

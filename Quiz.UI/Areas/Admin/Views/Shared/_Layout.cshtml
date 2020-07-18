@@ -26,10 +26,10 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         @*<li class="nav-item">
-                            <a class="nav-link text-dark
-                               @(Helper.SetActiveClassName(new string[] {"/admin/home","/admin" }))"
-                               asp-area="admin" asp-action="index" asp-controller="home">Home</a>
-                        </li>*@
+            <a class="nav-link text-dark
+               @(Helper.SetActiveClassName(new string[] {"/admin/home","/admin" }))"
+               asp-area="admin" asp-action="index" asp-controller="home">Home</a>
+        </li>*@
                         <li class="nav-item dropdown">
                             <a href="#" class="nav-link text-dark dropdown-toggle @(Helper.SetActiveClassName(new string[] {"/admin/quiz/create","/admin/quiz/list" }))" data-toggle="dropdown">Quiz</a>
                             <div class="dropdown-menu">
@@ -65,8 +65,13 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" title="Back List" asp-area="admin" asp-action="list" asp-controller="@(ctrlName)">
-                                <i class="fas fa-arrow-circle-left"></i>
+                            <a class="nav-link text-dark" asp-area="admin" asp-action="list" asp-controller="@(ctrlName)">
+                                <i class="fas fa-arrow-circle-left"></i> List
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-action="index" asp-controller="home">
+                                <i class="fas fa-arrow-circle-left"></i> Site
                             </a>
                         </li>
                     </ul>

@@ -1,19 +1,19 @@
-﻿app.controller("RoleListCtrl", RoleListCtrl);
-app.controller("RoleCreateCtrl", RoleCreateCtrl);
+﻿app.controller("SystemActionListCtrl", SystemActionListCtrl);
+app.controller("SystemActionCreateCtrl", SystemActionCreateCtrl);
 
 /**
- * Role List Ctrl
+ * SystemAction List Ctrl
  * @param {any} $scope
  * @param {any} $jgHttp
  */
-function RoleListCtrl($scope, $jgHttp) {
-    const cName = "role";
+function SystemActionListCtrl($scope, $jgHttp) {
+    const cName = "systemaction";
     $scope.wait = true;
-    $scope.roleList = [];
+    $scope.systemActionList = [];
 
     function init() {
         $jgHttp.getData(`${apiUrl}/${cName}/get`, (s => {
-            $scope.roleList = s.data;
+            $scope.systemActionList = s.data;
             $scope.wait = false;
         }), (e => {
             $scope.wait = false;
@@ -23,18 +23,18 @@ function RoleListCtrl($scope, $jgHttp) {
 }
 
 /**
- * Role Create Ctrl
+ * SystemAction Create Ctrl
  * @param {any} $scope
  * @param {any} $jgHttp
  */
-function RoleCreateCtrl($scope, $jgHttp) {
-    const cName = "role";
+function SystemActionCreateCtrl($scope, $jgHttp) {
+    const cName = "systemaction";
     $scope.wait = true;
-    $scope.role = {};
+    $scope.systemAction = {};
 
     function init() {
         $jgHttp.getData(`${apiUrl}/${cName}/get/${id}`, (s => {
-            $scope.role = s.data;
+            $scope.systemAction = s.data;
             $scope.wait = false;
         }), (e => {
             $scope.wait = false;
@@ -43,7 +43,7 @@ function RoleCreateCtrl($scope, $jgHttp) {
     init();
 
     $scope.save = () => {
-        $jgHttp.postData(`${apiUrl}/${cName}/save`, $scope.role, (s => {
+        $jgHttp.postData(`${apiUrl}/${cName}/save`, $scope.systemAction, (s => {
             if (s.isSuccess) {
                 window.location = `/admin/${cName}/list`;
             }
