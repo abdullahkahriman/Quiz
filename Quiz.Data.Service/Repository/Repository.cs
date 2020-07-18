@@ -79,6 +79,7 @@ namespace Quiz.Data.Service
         public bool _Remove<A>(A model) where A : Superior
         {
             model.IsDeleted = true;
+            model.UpdatedAt = DateTime.Now;
             _Save();
             return true;
         }
@@ -151,7 +152,8 @@ namespace Quiz.Data.Service
         [NonAction]
         public A _GetSingle<A>(Func<A, bool> metot) where A : Superior
         {
-            return _Table<A>().FirstOrDefault(metot);
+            A get =  _Table<A>().FirstOrDefault(metot);
+            return get;
         }
 
         [NonAction]

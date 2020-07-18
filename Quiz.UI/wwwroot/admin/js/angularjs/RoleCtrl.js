@@ -43,7 +43,19 @@ function RoleCreateCtrl($scope, $jgHttp) {
     init();
 
     $scope.save = () => {
-        $jgHttp.postData(`${apiUrl}/${cName}/save`, $scope.role, (s => {
+        $scope.model = $scope.role;
+        $scope.model.roleSystemActions = [];
+
+        for (var i = 0; i < $scope.role.systemActions.length; i++) {
+            if ($scope.role.systemActions[i].checked == true) {
+                $scope.model.roleSystemActions.push({
+                    roleID: $scope.role.id,
+                    systemActionID: $scope.role.systemActions[i].id
+                })
+            }
+        }
+
+        $jgHttp.postData(`${apiUrl}/${cName}/save`, $scope.model, (s => {
             if (s.isSuccess) {
                 window.location = `/admin/${cName}/list`;
             }

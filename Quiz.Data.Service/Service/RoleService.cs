@@ -1,6 +1,8 @@
-﻿using Quiz.Core;
+﻿using Microsoft.EntityFrameworkCore;
+using Quiz.Core;
 using Quiz.Data.Model.System;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Quiz.Data.Service
@@ -50,10 +52,23 @@ namespace Quiz.Data.Service
             try
             {
                 Role role = this._GetSingle(c => !c.IsDeleted && c.ID == id);
+                if (role == null)
+                    return new Result<object>(false, "Role not found!");
+               
+                var systemActions = this._context.SystemAction.Where(c => !c.IsDeleted)
+                    .Select(c => new 
+                    {
+                        ID = c.ID,
+                        CtrlName = c.ControllerName,
+                        ActName = c.ActionName,
+                        Checked = this._context.RoleSystemAction.Any(rsa => !rsa.IsDeleted && rsa.RoleID == role.ID && rsa.SystemActionID == c.ID)
+                    }).ToList();
+
                 var find = new
                 {
                     ID = role.ID,
-                    Name = role.Name
+                    Name = role.Name,
+                    systemActions = systemActions
                 };
                 result = new Result<object>(true, string.Empty, find);
             }
@@ -78,6 +93,8 @@ namespace Quiz.Data.Service
             {
                 if (string.IsNullOrEmpty(model.Name))
                     return new Result<object>(false, "Role name is required");
+                if (model.RoleSystemActions == null || model.RoleSystemActions.Count == 0)
+                    return new Result<object>(false, "You must choose system actions");
 
                 Role role = this._GetSingle(c => c.ID == model.ID);
                 if (role == null)
@@ -89,10 +106,19 @@ namespace Quiz.Data.Service
                     else
                     {
                         role.Name = model.Name;
-                        role.UpdatedAt = DateTime.Now;
                         this._Update(role);
+
+                        //delete previous records
+                        var roleSystemActions = this._context.RoleSystemAction.Where(c => c.RoleID == role.ID).ToList();
+                        foreach (RoleSystemAction roleSystemAction in roleSystemActions)
+                            this._Remove<RoleSystemAction>(roleSystemAction);
+
+                        //add new records
+                        this._context.RoleSystemAction.AddRange(model.RoleSystemActions);
+                        this._context.SaveChanges();
                     }
                 }
+
                 result = new Result<object>(true, string.Empty);
             }
             catch (Exception ex)
