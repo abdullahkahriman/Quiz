@@ -15,7 +15,12 @@ namespace Quiz.UI.Areas.Admin.Controllers
 
         public IActionResult Create(long? ID)
         {
-            ViewBag.ID = ID;
+            if ((ID ?? 0) == 0)
+            {
+                return RedirectToAction("List");
+            }
+
+            ViewBag.ID = ID.Value;
             return View();
         }
     }

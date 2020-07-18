@@ -33,22 +33,17 @@ function UserCreateCtrl($scope, $jgHttp) {
     $scope.user = {};
 
     function init() {
-        if (id > 0) {
-            $jgHttp.getData(`${apiUrl}/${cName}/get/${id}`, (s => {
-                $scope.user = s.data;
-                $scope.wait = false;
-            }), (e => {
-                $scope.wait = false;
-            }));
-        } else {
+        $jgHttp.getData(`${apiUrl}/${cName}/get/${id}`, (s => {
+            $scope.user = s.data;
             $scope.wait = false;
-        }
+        }), (e => {
+            $scope.wait = false;
+        }));
     }
     init();
 
     $scope.save = () => {
         $scope.model = $scope.user;
-
         $scope.model.userRoles = [];
 
         for (var i = 0; i < $scope.model.roles.length; i++) {
@@ -58,7 +53,7 @@ function UserCreateCtrl($scope, $jgHttp) {
                 });
             }
         }
-       
+
         $jgHttp.postData(`${apiUrl}/${cName}/save`, $scope.model, (s => {
             if (s.isSuccess) {
                 window.location = `/admin/${cName}/list`;

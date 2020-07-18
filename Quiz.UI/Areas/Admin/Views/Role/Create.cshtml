@@ -1,5 +1,5 @@
 ﻿@{
-    long? id = (long?)ViewBag.ID;
+    long id = (long)ViewBag.ID;
 }
 
 @section Scripts {
@@ -10,12 +10,13 @@
 }
 
 <div ng-controller="RoleCreateCtrl">
+    <div ng-show="wait" class="text-center">Please wait...</div>
     <form ng-submit="save()" ng-hide="wait">
         <div class="form-group">
             <label for="name">Role name:</label>
             <input type="text" id="name" autofocus class="form-control" ng-model="role.name" placeholder="Role name" />
         </div>
-        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="btn btn-primary">{{ role.id == 0 ? 'Save' : 'Update' }}</button>
     </form>
 </div>
 

@@ -28,9 +28,8 @@ namespace Quiz.API.Controllers
         public ActionResult<Result<object>> Save([FromBody] User model)
         {
             foreach (UserRole ur in model.UserRoles)
-            {
                 ur.UserID = Current.User.ID;
-            }
+
             return this.userService.Save(model);
         }
     }

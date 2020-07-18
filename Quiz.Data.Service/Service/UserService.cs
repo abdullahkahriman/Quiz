@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Quiz.Core;
 using Quiz.Core.Infrastructure;
@@ -142,20 +141,27 @@ namespace Quiz.Data.Service
 
             try
             {
-                var user = this._context.User.Where(c => !c.IsDeleted && c.ID == id)
+                User user;
+
+                if (id == 0)
+                    user = new User() { };
+                else
+                {
+                    user = this._context.User.Where(c => !c.IsDeleted && c.ID == id)
                     .Include(c => c.UserRoles)
                     .FirstOrDefault();
 
-                if (user == null)
-                    return new Result<object>(false, "User not found");
+                    if (user == null)
+                        return new Result<object>(false, "User not found!");
+                }
 
                 var roles = this._context.Role.Where(c => !c.IsDeleted)
-                    .Select(c => new
-                    {
-                        ID = c.ID,
-                        Name = c.Name,
-                        Checked = user.UserRoles.Select(ur => ur.RoleID).ToArray().Any(ur => ur == c.ID)
-                    });
+                   .Select(c => new
+                   {
+                       ID = c.ID,
+                       Name = c.Name,
+                       Checked = user.UserRoles == null ? false : user.UserRoles.Select(ur => ur.RoleID).ToArray().Any(ur => ur == c.ID)
+                   });
 
                 var find = new
                 {
@@ -190,13 +196,11 @@ namespace Quiz.Data.Service
                 if (model.UserRoles == null || model.UserRoles.Count == 0)
                     return new Result<object>(false, "You must choose a role");
 
-                User user = this._context.User.Where(c => c.ID == model.ID).Include(c=>c.UserRoles).FirstOrDefault();
+                User user = this._context.User.Where(c => c.ID == model.ID).Include(c => c.UserRoles).FirstOrDefault();
                 if (user == null)
                 {
                     if (string.IsNullOrEmpty(model.Password))
-                    {
                         return new Result<object>(false, "Password is required");
-                    }
 
                     this._Add(model);
                 }

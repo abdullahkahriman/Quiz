@@ -10,6 +10,7 @@
 }
 
 <div ng-controller="UserCreateCtrl">
+    <div ng-show="wait" class="text-center">Please wait...</div>
     <form ng-submit="save()" ng-hide="wait">
         <div class="form-group">
             <label for="username">Username:</label>
@@ -33,7 +34,7 @@
         </div>
         <div class="clearfix"></div>
         <div class="form-group">
-            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="submit" class="btn btn-primary">{{ user.id == 0 ? 'Save' : 'Update' }}</button>
         </div>
     </form>
 </div>

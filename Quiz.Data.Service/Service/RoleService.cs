@@ -1,9 +1,7 @@
 ﻿using Quiz.Core;
 using Quiz.Data.Model.System;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Quiz.Data.Service
 {
@@ -51,7 +49,7 @@ namespace Quiz.Data.Service
 
             try
             {
-                var role = this._GetSingle(c => !c.IsDeleted && c.ID == id);
+                Role role = this._GetSingle(c => !c.IsDeleted && c.ID == id);
                 var find = new
                 {
                     ID = role.ID,
@@ -79,15 +77,11 @@ namespace Quiz.Data.Service
             try
             {
                 if (string.IsNullOrEmpty(model.Name))
-                {
                     return new Result<object>(false, "Role name is required");
-                }
 
                 Role role = this._GetSingle(c => c.ID == model.ID);
                 if (role == null)
-                {
                     this._Add(model);
-                }
                 else
                 {
                     if (this._GetAny<Role>(c => c.ID != model.ID && c.Name.ToLower().Equals(model.Name.ToLower())))

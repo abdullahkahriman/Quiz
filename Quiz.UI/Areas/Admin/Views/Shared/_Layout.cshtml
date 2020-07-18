@@ -44,7 +44,7 @@
                             <div class="dropdown-menu">
                                 <a asp-area="admin" asp-action="list" asp-controller="user"
                                    class="dropdown-item @(Helper.SetActiveClassName(new string[] {"/admin/user/list" }))">List</a>
-                                <a asp-area="admin" asp-action="create" asp-controller="user"
+                                <a asp-area="admin" asp-action="create" asp-controller="user" asp-route-id=""
                                    class="dropdown-item @(Helper.SetActiveClassName(new string[] {"/admin/user/create" }))">Create</a>
                             </div>
                         </li>
@@ -53,8 +53,6 @@
                             <div class="dropdown-menu">
                                 <a asp-area="admin" asp-action="list" asp-controller="role"
                                    class="dropdown-item @(Helper.SetActiveClassName(new string[] {"/admin/role/list" }))">List</a>
-                                <a asp-area="admin" asp-action="create" asp-controller="role" asp-route-id=""
-                                   class="dropdown-item @(Helper.SetActiveClassName(new string[] {"/admin/role/create" }))">Create</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
