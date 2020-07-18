@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    string ctrlName = this.ViewContext.RouteData.Values["controller"]?.ToString();
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Admin</title>
@@ -61,6 +65,11 @@
                                 <a asp-area="admin" asp-action="create" asp-controller="systemAction"
                                    class="dropdown-item @(Helper.SetActiveClassName(new string[] {"/admin/systemaction/create" }))">Create</a>
                             </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" title="Back List" asp-area="admin" asp-action="list" asp-controller="@(ctrlName)">
+                                <i class="fas fa-arrow-circle-left"></i>
+                            </a>
                         </li>
                     </ul>
                 </div>

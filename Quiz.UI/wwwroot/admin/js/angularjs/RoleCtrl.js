@@ -7,11 +7,12 @@ app.controller("RoleCreateCtrl", RoleCreateCtrl);
  * @param {any} $jgHttp
  */
 function RoleListCtrl($scope, $jgHttp) {
+    const cName = "role";
     $scope.wait = true;
     $scope.roleList = [];
 
     function init() {
-        $jgHttp.getData(`${apiUrl}/role/get`, (s => {
+        $jgHttp.getData(`${apiUrl}/${cName}/get`, (s => {
             $scope.roleList = s.data;
             $scope.wait = false;
         }), (e => {
@@ -27,11 +28,12 @@ function RoleListCtrl($scope, $jgHttp) {
  * @param {any} $jgHttp
  */
 function RoleCreateCtrl($scope, $jgHttp) {
+    const cName = "role";
     $scope.wait = true;
     $scope.role = {};
 
     function init() {
-        $jgHttp.getData(`${apiUrl}/role/get/${id}`, (s => {
+        $jgHttp.getData(`${apiUrl}/${cName}/get/${id}`, (s => {
             $scope.role = s.data;
             $scope.wait = false;
         }), (e => {
@@ -43,7 +45,7 @@ function RoleCreateCtrl($scope, $jgHttp) {
     $scope.save = () => {
         $jgHttp.postData(`${apiUrl}/role/save`, $scope.role, (s => {
             if (s.isSuccess) {
-                window.location = '/admin/role/list';
+                window.location = `/admin/${cName}/list`;
             }
         }));
     };

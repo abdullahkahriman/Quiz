@@ -78,6 +78,11 @@ namespace Quiz.Data.Service
 
             try
             {
+                if (string.IsNullOrEmpty(model.Name))
+                {
+                    return new Result<object>(false, "Role name is required");
+                }
+
                 Role role = this._GetSingle(c => c.ID == model.ID);
                 if (role == null)
                 {
@@ -91,7 +96,7 @@ namespace Quiz.Data.Service
                     {
                         role.Name = model.Name;
                         role.UpdatedAt = DateTime.Now;
-                        this._Update(model);
+                        this._Update(role);
                     }
                 }
                 result = new Result<object>(true, string.Empty);

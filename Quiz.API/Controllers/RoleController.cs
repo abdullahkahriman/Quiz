@@ -22,7 +22,7 @@ namespace Quiz.API.Controllers
         [HttpGet("[action]/{id?}")]
         public ActionResult<Result<object>> Get(long? id)
         {
-            if ((id ?? 0) == 0)
+            if (id==null)
                 return this.roleService.Get();
             else
                 return this.roleService.GetByID(id.Value);

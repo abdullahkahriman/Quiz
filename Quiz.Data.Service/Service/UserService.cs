@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Quiz.Core;
+using Quiz.Core.Infrastructure;
 using Quiz.Data.Model.System;
 using Quiz.Data.Model.System.Authentication;
 using System;
@@ -97,6 +98,128 @@ namespace Quiz.Data.Service
             else
             {
                 result = new Result<object>(false, "Username and password required");
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// All list
+        /// </summary>
+        /// <returns></returns>
+        public Result<object> Get()
+        {
+            Result<object> result;
+
+            try
+            {
+                var list = this._GetWhere(c => !c.IsDeleted && c.UserRoles.Any(r => r.RoleID != (byte)Static.Role.Administrator))
+                    .Select(c => new
+                    {
+                        ID = c.ID,
+                        Username = c.Username,
+                        CreatedAt = c.CreatedAt,
+                        UpdatedAt = c.UpdatedAt
+                    });
+                result = new Result<object>(true, string.Empty, list);
+            }
+            catch (Exception ex)
+            {
+                result = new Result<object>(false, "Something went wrong!");
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Single user
+        /// </summary>
+        /// <param name="id">User ID</param>
+        /// <returns></returns>
+        public Result<object> GetByID(long id)
+        {
+            Result<object> result;
+
+            try
+            {
+                var user = this._context.User.Where(c => !c.IsDeleted && c.ID == id)
+                    .Include(c => c.UserRoles)
+                    .FirstOrDefault();
+
+                if (user == null)
+                    return new Result<object>(false, "User not found");
+
+                var roles = this._context.Role.Where(c => !c.IsDeleted)
+                    .Select(c => new
+                    {
+                        ID = c.ID,
+                        Name = c.Name,
+                        Checked = user.UserRoles.Select(ur => ur.RoleID).ToArray().Any(ur => ur == c.ID)
+                    });
+
+                var find = new
+                {
+                    ID = user.ID,
+                    Username = user.Username,
+                    Roles = roles
+                };
+                result = new Result<object>(true, string.Empty, find);
+            }
+            catch (Exception ex)
+            {
+                result = new Result<object>(false, "Something went wrong!");
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// User save or update
+        /// </summary>
+        /// <param name="model">User model</param>
+        /// <returns></returns>
+        public Result<object> Save(User model)
+        {
+            Result<object> result;
+
+            try
+            {
+                if (string.IsNullOrEmpty(model.Username))
+                    return new Result<object>(false, "Username is required");
+
+                if (model.UserRoles == null || model.UserRoles.Count == 0)
+                    return new Result<object>(false, "You must choose a role");
+
+                User user = this._context.User.Where(c => c.ID == model.ID).Include(c=>c.UserRoles).FirstOrDefault();
+                if (user == null)
+                {
+                    if (string.IsNullOrEmpty(model.Password))
+                    {
+                        return new Result<object>(false, "Password is required");
+                    }
+
+                    this._Add(model);
+                }
+                else
+                {
+                    if (this._GetAny<User>(c => c.ID != model.ID && c.Username.ToLower().Equals(model.Username.ToLower())))
+                        return new Result<object>(false, "Username already exists");
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(model.Password))
+                            user.Password = model.Password.ToSHA256();
+
+                        user.Username = model.Username;
+                        user.UpdatedAt = DateTime.Now;
+                        user.UserRoles = model.UserRoles;
+                        this._Update(user);
+                    }
+                }
+                result = new Result<object>(true, string.Empty);
+            }
+            catch (Exception ex)
+            {
+                result = new Result<object>(false, "Something went wrong!");
             }
 
             return result;
