@@ -197,7 +197,9 @@ namespace Quiz.Data.Service
                 if (model.QuestionAnswers.Count(c => c.Answer.IsTrue) == 0)
                     return new Result<object>(false, "You must mark at least one correct answer");
 
-                Question question = this._GetSingle(c => !c.IsDeleted && c.ID == model.ID);
+                Question question = this._context.Question.Where(c => !c.IsDeleted && c.ID == model.ID)
+                    .Include(c=>c.QuestionAnswers)
+                    .FirstOrDefault();
 
                 if (question == null)
                     this._Add(model);

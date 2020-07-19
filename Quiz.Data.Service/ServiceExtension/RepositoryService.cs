@@ -11,6 +11,7 @@ namespace Quiz.Data.Service
         {
             services.AddDbContextService();
             services.AddTransient<IAuthorizationService, AuthorizationService>();
+            services.AddTransient<IDashboardService, DashboardService>();
             services.AddTransient<IRepository<User>, UserService>();
             services.AddTransient<IRepository<Question>, QuizService>();
             services.AddTransient<IRepository<Role>, RoleService>();

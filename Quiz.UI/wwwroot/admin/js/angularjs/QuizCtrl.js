@@ -89,6 +89,17 @@ function QuizCreateCtrl($scope, $jgHttp) {
         }
     }
 
+    /**
+     * remove answer by index
+     * @param {any} index
+     */
+    $scope.removeAnswer = (index) => {
+        if (index >= 0) {
+            $scope.quiz.questionAnswers.splice(index, 1);
+        }
+        console.log($scope.quiz.questionAnswers);
+    }
+
     /** save */
     $scope.save = () => {
         $scope.model = $scope.quiz;
