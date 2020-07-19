@@ -8,6 +8,6 @@ namespace Quiz.Data.Model.Entity
         public string Text { get; set; }
         public bool IsMultipleChoice { get; set; }
 
-        public List<QuestionAnswer> QuestionAnswers { get; set; }
+        public virtual List<QuestionAnswer> QuestionAnswers { get; set; }
     }
 }

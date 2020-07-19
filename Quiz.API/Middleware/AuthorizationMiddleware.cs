@@ -3,6 +3,7 @@ using Quiz.API.Static;
 using Quiz.Core;
 using Quiz.Data.Model.System.Authorization;
 using Quiz.Data.Service.Interface;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -65,7 +66,7 @@ namespace Quiz.API.Middleware
                     await _next.Invoke(httpContext);
                 }
             }
-            catch
+            catch(Exception ex)
             {
                 httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
                 httpContext.Response.ContentType = "application/json";

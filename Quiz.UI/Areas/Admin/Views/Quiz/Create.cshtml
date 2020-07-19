@@ -1,0 +1,54 @@
+﻿@{
+    long id = (long)ViewBag.ID;
+}
+
+@section Scripts {
+    <script>
+        const id = @id;
+    </script>
+    <script src="~/admin/js/angularjs/QuizCtrl.js"></script>
+}
+
+<div ng-controller="QuizCreateCtrl">
+    <div ng-show="wait" class="text-center">Please wait...</div>
+    <form ng-submit="save()" ng-hide="wait">
+        <div class="form-group">
+            <label for="name">Question:</label>
+            <input type="text" id="name" autofocus class="form-control" ng-model="quiz.text" placeholder="Question" />
+        </div>
+        <div class="form-group">
+            <label class="d-block">
+                Answers:
+                <a ng-show="quiz.questionAnswers.length < 5" ng-click="addAnswer()" title="Add answer">
+                    <i class="fas fa-plus-circle"></i>
+                </a>
+            </label>
+            <div class="d-inline"
+                 ng-repeat="questionAnswer in quiz.questionAnswers">
+                <div class="input-group col-md-3" style="float: left; margin-bottom: 10px; padding-left: 0;">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <input type="checkbox" ng-model="questionAnswer.answer.isTrue"
+                                   value="{{ questionAnswer.answer.isTrue }}"
+                                   name="isTrue" />
+                        </span>
+                    </div>
+                    <input type="text" value="{{questionAnswer.answer.text}}"
+                           placeholder="Answer {{$index+1}}"
+                           ng-model="questionAnswer.answer.text"
+                           class="form-control" />
+                    <div class="input-group-append">
+                        <a class="input-group-text" href="" ng-click="removeAnswer()" title="Remove answer">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="form-group mt-3">
+            <button type="submit" class="btn btn-primary">{{ quiz.id == 0 ? 'Save' : 'Update' }}</button>
+        </div>
+    </form>
+</div>
+

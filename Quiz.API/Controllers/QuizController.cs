@@ -47,5 +47,26 @@ namespace Quiz.API.Controllers
                 throw ex;
             }
         }
+
+        [HttpGet("[action]/{id?}")]
+        public ActionResult<Result<object>> GetAdmin(long? id)
+        {
+            if (id == null)
+                return this.quizService.GetAdmin();
+            else
+                return this.quizService.GetAdminByID(id.Value);
+        }
+
+        [HttpPost("[action]")]
+        public ActionResult<Result<object>> Save([FromBody] Question model)
+        {
+            return this.quizService.Save(model);
+        }
+
+        [HttpPost("[action]/{id}")]
+        public ActionResult<Result<object>> Delete(long id)
+        {
+            return this.quizService.Delete(id);
+        }
     }
 }

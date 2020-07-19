@@ -1,4 +1,5 @@
-﻿using Quiz.Core;
+﻿using Microsoft.EntityFrameworkCore;
+using Quiz.Core;
 using Quiz.Data.Model.Entity;
 using Quiz.Data.Model.Request;
 using System;
@@ -104,6 +105,143 @@ namespace Quiz.Data.Service
             catch (Exception ex)
             {
                 result = new Result<object>(false, ex.Message);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Get question list
+        /// </summary>
+        /// <returns></returns>
+        public Result<object> GetAdmin()
+        {
+            Result<object> result;
+
+            try
+            {
+                var list = this._context.Question.Where(c => !c.IsDeleted)
+                    .OrderByDescending(c => c.UpdatedAt)
+                    .OrderByDescending(c => c.CreatedAt)
+                    .Include(c => c.QuestionAnswers)
+                    .Select(c => new
+                    {
+                        ID = c.ID,
+                        Text = c.Text,
+                        CreatedAt = c.CreatedAt,
+                        UpdatedAt = c.UpdatedAt,
+                        AnswerCount = c.QuestionAnswers.Count
+                    }).ToList();
+                result = new Result<object>(true, string.Empty, list);
+            }
+            catch (Exception ex)
+            {
+                result = new Result<object>(false, "Something went wrong!");
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Get question by id
+        /// </summary>
+        /// <param name="id">Question ID</param>
+        /// <returns></returns>
+        public Result<object> GetAdminByID(long id)
+        {
+            Result<object> result;
+
+            try
+            {
+                Question question = this._context.Question.Where(c => !c.IsDeleted && c.ID == id)
+                    .Include("QuestionAnswers.Answer")
+                    .FirstOrDefault();
+
+                if (id == 0)
+                {
+                    question = new Question()
+                    {
+                        QuestionAnswers = new List<QuestionAnswer>()
+                    };
+                }
+                else if (question == null)
+                    return new Result<object>(false, "Question not found!");
+
+                result = new Result<object>(true, string.Empty, question);
+            }
+            catch (Exception ex)
+            {
+                result = new Result<object>(false, "Something went wrong!");
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Question save or update
+        /// </summary>
+        /// <param name="model">Question model</param>
+        /// <returns></returns>
+        public Result<object> Save(Question model)
+        {
+            Result<object> result;
+
+            try
+            {
+                if (string.IsNullOrEmpty(model.Text))
+                    return new Result<object>(false, "Question is required");
+
+                if (model.QuestionAnswers == null || model.QuestionAnswers.Count == 0 || model.QuestionAnswers.Any(c => string.IsNullOrEmpty(c.Answer?.Text)))
+                    return new Result<object>(false, "Answer is required");
+
+                if (model.QuestionAnswers.Count(c => c.Answer.IsTrue) == 0)
+                    return new Result<object>(false, "You must mark at least one correct answer");
+
+                Question question = this._GetSingle(c => !c.IsDeleted && c.ID == model.ID);
+
+                if (question == null)
+                    this._Add(model);
+                else
+                {
+                    question.Text = model.Text;
+                    question.QuestionAnswers = model.QuestionAnswers;
+                    this._Update(question);
+                }
+
+                result = new Result<object>(true, string.Empty);
+            }
+            catch (Exception ex)
+            {
+                result = new Result<object>(false, "Something went wrong!");
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Question delete
+        /// </summary>
+        /// <param name="id">Question ID</param>
+        /// <returns></returns>
+        public Result<object> Delete(long id)
+        {
+            Result<object> result;
+
+            try
+            {
+                Question question = this._GetSingle(c => !c.IsDeleted && c.ID == id);
+                if (question == null)
+                    return new Result<object>(false, "Question not found!");
+                else
+                {
+                    this._Remove(id);
+
+                    result = new Result<object>(true, "Deleted");
+                }
+            }
+            catch (Exception ex)
+            {
+                result = new Result<object>(false, "Something went wrong!");
             }
 
             return result;

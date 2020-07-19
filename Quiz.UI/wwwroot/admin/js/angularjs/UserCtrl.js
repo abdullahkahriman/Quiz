@@ -21,6 +21,10 @@ function UserListCtrl($scope, $jgHttp) {
     }
     init();
 
+    /**
+     * delete user
+     * @param {any} id
+     */
     $scope.delete = (id) => {
         if (window.confirm("Are you sure?")) {
             $scope.wait = true;
@@ -33,6 +37,10 @@ function UserListCtrl($scope, $jgHttp) {
         }
     }
 
+    /**
+     * delete object from user list
+     * @param {any} id
+     */
     function removeByID(id) {
         var arr = $scope.userList;
         for (var i = 0; i < arr.length; i++) {

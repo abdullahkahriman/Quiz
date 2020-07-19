@@ -36,7 +36,7 @@
                             <div class="dropdown-menu">
                                 <a asp-area="admin" asp-action="list" asp-controller="quiz"
                                    class="dropdown-item @(Helper.SetActiveClassName(new string[] {"/admin/quiz/list" }))">List</a>
-                                <a asp-area="admin" asp-action="create" asp-controller="quiz"
+                                <a asp-area="admin" asp-action="create" asp-controller="quiz" asp-route-id=""
                                    class="dropdown-item @(Helper.SetActiveClassName(new string[] {"/admin/quiz/create" }))">Create</a>
                             </div>
                         </li>

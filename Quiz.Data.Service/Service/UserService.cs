@@ -240,17 +240,13 @@ namespace Quiz.Data.Service
 
             try
             {
-                User user = this._context.User.Where(c => c.ID == id).FirstOrDefault();
+                User user = this._context.User.Where(c => !c.IsDeleted && c.ID == id).FirstOrDefault();
                 if (user == null)
                     return new Result<object>(false, "User not found!");
                 else
                 {
-                    user.IsDeleted = true;
-                    user.UpdatedAt = DateTime.Now;
-                    this._context.Entry(user).State = EntityState.Modified;
-                    this._context.SaveChanges();
-
-                    result = new Result<object>(true, "Updated");
+                    this._Remove(id);
+                    result = new Result<object>(true, "Deleted");
                 }
             }
             catch (Exception ex)
