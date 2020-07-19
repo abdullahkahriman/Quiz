@@ -33,13 +33,20 @@ namespace Quiz.Data.Service
 
                     if (user != null && roles != null && roles.Length > 0)
                     {
+                        var roleSystemActions = _context.RoleSystemAction
+                            .Where(c => !c.IsDeleted && roles.Contains(c.RoleID))
+                            .Include(c => c.SystemAction)
+                            .Select(c => c.SystemAction)
+                            .ToList();
+
                         return new Authorize()
                         {
                             User = user,
-                            AuthorizedActions = _context.RoleSystemAction
-                            .Include(c => c.SystemAction)
-                            .Where(c => roles.Contains(c.RoleID))
-                            .Select(c => c.SystemAction).ToList()
+                            AuthorizedActions = roleSystemActions
+                            //AuthorizedActions = _context.RoleSystemAction
+                            //.Include(c => c.SystemAction)
+                            //.Where(c => roles.Contains(c.RoleID))
+                            //.Select(c => c.SystemAction).ToList()
                         };
                     }
                 }

@@ -33,7 +33,7 @@ namespace Quiz.API.Middleware
                         if (result != null)
                         {
                             Current.User = result.User;
-                            if (result.AuthorizedActions.Any(c => c.ControllerName.Equals(controller) && c.ActionName.Equals(action)))
+                            if (result.AuthorizedActions.Any(c =>c.ControllerName.Equals(controller) && c.ActionName.Equals(action)))
                             {
                                 await _next.Invoke(httpContext);
                             }

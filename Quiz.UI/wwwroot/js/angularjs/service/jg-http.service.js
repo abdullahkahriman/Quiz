@@ -34,7 +34,8 @@ function jgHttp($http) {
                 if (error.status == 401) {
                     alert("Oturumunuz Sonlandı. Tekrar Giriş Yapın!");
                     redirectSignIn();
-                } else {
+                }
+                else {
                     alert("Hata Var");
                 }
             });
@@ -65,6 +66,8 @@ function jgHttp($http) {
                 if (error.status == 401) {
                     alert("Oturumunuz Sonlandı. Tekrar Giriş Yapın!");
                     redirectSignIn();
+                } else if (error.status == 403) {
+                    window.location = '/error/_403';
                 } else {
                     alert("Hata Var");
                 }

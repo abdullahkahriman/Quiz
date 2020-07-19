@@ -31,6 +31,7 @@ function RoleCreateCtrl($scope, $jgHttp) {
     const cName = "role";
     $scope.wait = true;
     $scope.role = {};
+    $scope.allSelected = false;
 
     function init() {
         $jgHttp.getData(`${apiUrl}/${cName}/get/${id}`, (s => {
@@ -42,6 +43,15 @@ function RoleCreateCtrl($scope, $jgHttp) {
     }
     init();
 
+    /** all select system action */
+    $scope.allSelect = () => {
+        $scope.allSelected = !$scope.allSelected;
+
+        for (var i = 0; i < $scope.role.systemActions.length; i++)
+            $scope.role.systemActions[i].checked = $scope.allSelected;
+    }
+
+    /** save */
     $scope.save = () => {
         $scope.model = $scope.role;
         $scope.model.roleSystemActions = [];
@@ -60,5 +70,5 @@ function RoleCreateCtrl($scope, $jgHttp) {
                 window.location = `/admin/${cName}/list`;
             }
         }));
-    };
+    }
 }

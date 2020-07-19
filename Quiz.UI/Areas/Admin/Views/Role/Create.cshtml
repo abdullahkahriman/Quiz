@@ -17,7 +17,12 @@
             <input type="text" id="name" autofocus class="form-control" ng-model="role.name" placeholder="Role name" />
         </div>
         <div class="form-group">
-            <label class="d-block">System Actions:</label>
+            <label class="d-block">
+                System Actions:
+                <a href="" ng-click="allSelect()" title="All {{allSelected ? 'un':''}}select">
+                    <i class="{{ allSelected ? 'fas' : 'far' }} fa-check-circle"></i>
+                </a>
+            </label>
             <div style="overflow: hidden; width: calc(100% / 4); float: left;"
                  class="form-check"
                  ng-repeat="systemAction in role.systemActions">

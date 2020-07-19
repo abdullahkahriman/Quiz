@@ -9,7 +9,7 @@ function HomeCtrl($scope, $jgHttp) {
 
     /** Sign out */
     $scope.signOut = function () {
-        if (confirm("Are you sure?"))
+        if (window.confirm("Are you sure?"))
             signOut();
     }
 
