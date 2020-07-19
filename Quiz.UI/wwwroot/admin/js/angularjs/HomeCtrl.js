@@ -13,22 +13,27 @@ function HomeCtrl($scope, $jgHttp) {
             signOut();
     }
 
+    /** get count */
+    function getCount() {
+        $jgHttp.getData(`${apiUrl}/${cName}/getCount`, (s => {
+            $scope.total = s.data;
+            $scope.wait = false;
+
+            setLS("dashboard", JSON.stringify(s.data));
+        }), (e => {
+            $scope.wait = false;
+        }));
+    }
+
+    /** initialize */
     function init() {
         const ls = getLS("dashboard");
         if (!ls) {
-            $jgHttp.getData(`${apiUrl}/${cName}/getCount`, (s => {
-                $scope.total = s.data;
-                $scope.wait = false;
-
-                setLS("dashboard", JSON.stringify(s.data));
-            }), (e => {
-                $scope.wait = false;
-            }));
+            getCount();
         } else {
             $scope.total = JSON.parse(ls);
             $scope.wait = false;
         }
     }
     init();
-
 }

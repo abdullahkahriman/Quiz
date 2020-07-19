@@ -1,4 +1,8 @@
-﻿a.active {
+﻿[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+a.active {
     text-decoration: underline;
 }
 .click {
